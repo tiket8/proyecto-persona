@@ -16,36 +16,17 @@ class ProfesionController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function create($data) {
+        $this->profesion->profesion = $data['profesion'];
+        $this->profesion->hora = $data['hora'];
+        $this->profesion->fecha = $data['fecha'];
+        $this->profesion->estado = 1;
+        return $this->profesion->create();
+    }
+
     public function softDelete($id) {
         $this->profesion->pk_profesion = $id;
-        if ($this->profesion->softDelete()) {
-            header("Location: /ProyectoPersona/index.php?action=readProfesion");
-        } else {
-            echo "Error al eliminar la profesión";
-        }
+        return $this->profesion->softDelete();
     }
 }
-
-$database = new Database();
-$db = $database->getConnection();
-$controller = new ProfesionController($db);
-
-$action = isset($_GET['action']) ? $_GET['action'] : '';
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-
-switch ($action) {
-    case 'readProfesion':
-        $profesiones = $controller->read();
-        $view = 'views/profesion/index.php';
-        break;
-    case 'softDelete':
-        $controller->softDelete($id);
-        break;
-    default:
-        $profesiones = $controller->read();
-        $view = 'views/profesion/index.php';
-        break;
-}
-
-include('views/layout.php');
 ?>

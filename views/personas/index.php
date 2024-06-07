@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Personas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-    <h2>Listado de Personas</h2>
+    <h2 class="text-center">Listado de Personas</h2>
 <a href="/ProyectoPersona/index.php?action=create" class="btn btn-primary mb-3">Agregar Persona</a>
-<table class="table table-striped">
+<a href="/ProyectoPersona/index.php?action=readProfesion" class="btn btn-secondary mb-3" target="_blank">Gestionar Profesiones</a> <!-- Botón con target="_blank" -->
+<div class="table-responsive">
+    <table class="table table-striped mx-auto" style="width: auto;">
     <thead>
         <tr>
             <th>ID</th>
@@ -61,5 +53,3 @@
     </tbody>
 </table>
     </div>
-</body>
-</html>

@@ -1,9 +1,3 @@
-
-<?php
-echo '<pre>';
-print_r($profesiones);
-echo '</pre>';
-?>
 <h2 class="text-center">Listado de Profesiones</h2>
 <a href="/ProyectoPersona/index.php?action=createProfesion" class="btn btn-primary mb-3">Agregar Profesión</a>
 <div class="table-responsive">
@@ -18,7 +12,7 @@ echo '</pre>';
             </tr>
         </thead>
         <tbody>
-              <?php if (isset($profesiones) && !empty($profesiones)): ?>
+            <?php if (isset($profesiones) && !empty($profesiones)): ?>
                 <?php foreach ($profesiones as $profesion): ?>
                     <tr>
                         <td><?php echo $profesion['pk_profesion']; ?></td>
@@ -26,7 +20,7 @@ echo '</pre>';
                         <td><?php echo $profesion['hora']; ?></td>
                         <td><?php echo $profesion['fecha']; ?></td>
                         <td>
-                            <a href="/ProyectoPersona/index.php?action=softDelete&id=<?php echo $profesion['pk_profesion']; ?>" class="btn btn-danger btn-eliminar">Eliminar</a>
+                            <a href="/ProyectoPersona/index.php?action=deleteProfesion&id=<?php echo $profesion['pk_profesion']; ?>" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -38,4 +32,3 @@ echo '</pre>';
         </tbody>
     </table>
 </div>
-

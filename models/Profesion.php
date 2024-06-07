@@ -20,6 +20,16 @@ class Profesion {
         return $stmt;
     }
 
+    public function create() {
+        $query = "INSERT INTO " . $this->table_name . " (profesion, hora, fecha, estado) VALUES (:profesion, :hora, :fecha, :estado)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':profesion', $this->profesion);
+        $stmt->bindParam(':hora', $this->hora);
+        $stmt->bindParam(':fecha', $this->fecha);
+        $stmt->bindParam(':estado', $this->estado);
+        return $stmt->execute();
+    }
+
     public function softDelete() {
         $query = "UPDATE " . $this->table_name . " SET estado = 0 WHERE pk_profesion = :pk_profesion";
         $stmt = $this->conn->prepare($query);

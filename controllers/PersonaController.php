@@ -168,5 +168,5 @@ switch ($action) {
         break;
 }
 
-include('views/layout.php');
+// include('views/layout.php');
 ?>
