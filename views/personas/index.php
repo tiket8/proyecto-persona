@@ -44,7 +44,7 @@
                     <img src="<?php echo $persona['foto_perfil']; ?>" alt="Foto de Perfil" width="50">
                 </td>
                 <td>
-                    <a href="/ProyectoPersona/index.php?action=readOne&id=<?php echo $persona['id']; ?>" class="btn btn-info">Ver</a>
+                <a href="/ProyectoPersona/index.php?action=readOne&id=<?php echo $persona['id']; ?>" class="btn btn-info" target="_blank">Ver</a>
                     <a href="/ProyectoPersona/index.php?action=update&id=<?php echo $persona['id']; ?>" class="btn btn-warning">Editar</a>                    
                     <a href="/ProyectoPersona/index.php?action=delete&id=<?php echo $persona['id']; ?>" class="btn btn-danger btn-eliminar">Eliminar</a>
                 </td>

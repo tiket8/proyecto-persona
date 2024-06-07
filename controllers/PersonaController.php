@@ -86,41 +86,52 @@ class PersonaController {
     }
 
     public function readOne($id) {
-        $this->persona->id = $id;
-        $stmt = $this->persona->readOne();
+        $query = "SELECT p.*, pr.profesion 
+                  FROM persona p
+                  LEFT JOIN profesion pr ON p.fk_profesion = pr.pk_profesion
+                  WHERE p.id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function update($id) {
-        $this->persona->id = $id;
-        $this->persona->nombres = $_POST['nombres'];
-        $this->persona->primer_apellido = $_POST['primer_apellido'];
-        $this->persona->segundo_apellido = $_POST['segundo_apellido'];
-        $this->persona->fecha_nacimiento = $_POST['fecha_nacimiento'];
-        $this->persona->edad = $_POST['edad'];
-        $this->persona->sexo = $_POST['sexo'];
-        $this->persona->fk_profesion = $_POST['fk_profesion'];
-        $this->persona->direccion = $_POST['direccion'];
-        $this->persona->codigo_postal = $_POST['codigo_postal'];
-        $this->persona->municipio = $_POST['municipio'];
-        $this->persona->estado = $_POST['estado'];
-        $this->persona->localidad = $_POST['localidad'];
-        $this->persona->telefono = $_POST['telefono'];
-
-        // Manejo del archivo de foto de perfil
-        if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] == 0) {
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["foto_perfil"]["name"]);
-            move_uploaded_file($_FILES["foto_perfil"]["tmp_name"], $target_file);
-            $this->persona->foto_perfil = $target_file;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->persona->id = $id;
+            $this->persona->nombres = $_POST['nombres'];
+            $this->persona->primer_apellido = $_POST['primer_apellido'];
+            $this->persona->segundo_apellido = $_POST['segundo_apellido'];
+            $this->persona->fecha_nacimiento = $_POST['fecha_nacimiento'];
+            $this->persona->edad = $_POST['edad'];
+            $this->persona->sexo = $_POST['sexo'];
+            $this->persona->fk_profesion = $_POST['fk_profesion'];
+            $this->persona->direccion = $_POST['direccion'];
+            $this->persona->codigo_postal = $_POST['codigo_postal'];
+            $this->persona->municipio = $_POST['municipio'];
+            $this->persona->estado = $_POST['estado'];
+            $this->persona->localidad = $_POST['localidad'];
+            $this->persona->telefono = $_POST['telefono'];
+    
+            if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] == 0) {
+                $target_dir = "uploads/";
+                $target_file = $target_dir . basename($_FILES["foto_perfil"]["name"]);
+                move_uploaded_file($_FILES["foto_perfil"]["tmp_name"], $target_file);
+                $this->persona->foto_perfil = $target_file;
+            } else {
+                $this->persona->foto_perfil = $_POST['foto_perfil_actual'];
+            }
+    
+            if ($this->persona->update()) {
+                header("Location: /ProyectoPersona/index.php?action=read");
+            } else {
+                echo "Error al actualizar la persona";
+            }
         } else {
-            $this->persona->foto_perfil = $_POST['foto_perfil_actual'];
-        }
-
-        if ($this->persona->update()) {
-            header("Location: /ProyectoPersona/index.php?action=read");
-        } else {
-            echo "Error al actualizar la persona";
+            $this->persona->id = $id;
+            $persona = $this->persona->readOne($id);
+            $view = 'views/personas/edit.php';
+            include('views/layout.php');
         }
     }
 
