@@ -51,19 +51,19 @@ $profesiones = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <div class="form-group">
         <label for="codigo_postal">Código Postal</label>
-        <input type="text" name="codigo_postal" class="form-control" id="codigo_postal" placeholder="Código Postal" required>
-    </div>
-    <div class="form-group">
-        <label for="municipio">Municipio</label>
-        <input type="text" name="municipio" class="form-control" id="municipio" readonly required>
+        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
     </div>
     <div class="form-group">
         <label for="estado">Estado</label>
-        <input type="text" name="estado" class="form-control" id="estado" readonly required>
+        <input type="text" class="form-control" id="estado" name="estado" readonly>
+    </div>
+    <div class="form-group">
+        <label for="municipio">Municipio</label>
+        <input type="text" class="form-control" id="municipio" name="municipio" readonly>
     </div>
     <div class="form-group">
         <label for="localidad">Localidad</label>
-        <input type="text" name="localidad" class="form-control" id="localidad" readonly required>
+        <input type="text" class="form-control" id="localidad" name="localidad" readonly>
     </div>
     <div class="form-group">
         <label for="telefono">Teléfono</label>
@@ -89,31 +89,32 @@ $profesiones = $stmt->fetchAll(PDO::FETCH_ASSOC);
     });
 
     document.getElementById('codigo_postal').addEventListener('change', function() {
-        const codigoPostal = this.value;
-        if (codigoPostal.length === 5) {
-            fetch(`/ProyectoPersona/index.php?action=getLocation&codigo_postal=${codigoPostal}`)
-                .then(response => response.text()) // Get the response as text
-                .then(text => {
-                    try {
-                        const data = JSON.parse(text); // Parse the JSON from the text
-                        if (data.error) {
-                            console.error(data.error);
-                            alert(data.error); // Show an error message to the user
-                        } else {
-                            document.getElementById('municipio').value = data.municipio;
-                            document.getElementById('estado').value = data.estado;
-                            document.getElementById('localidad').value = data.localidad;
-                        }
-                    } catch (error) {
-                        console.error('Error parsing JSON:', error);
-                        console.error('Server response:', text);
-                        alert('Error al procesar la respuesta del servidor.');
+    const codigoPostal = this.value.trim();
+
+    if (codigoPostal.length === 5) {
+        fetch(`/ProyectoPersona/index.php?action=getLocation&codigo_postal=${codigoPostal}`)
+            .then(response => response.text()) // Obtener la respuesta como texto
+            .then(text => {
+                try {
+                    const data = JSON.parse(text); // Parsear el JSON del texto
+                    if (data.error) {
+                        console.error(data.error);
+                        alert(data.error); // Mostrar un mensaje de error al usuario
+                    } else {
+                        document.getElementById('municipio').value = data.municipio;
+                        document.getElementById('estado').value = data.estado;
+                        document.getElementById('localidad').value = data.localidad;
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al obtener datos de ubicación.');
-                });
-        }
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                    console.error('Server response:', text);
+                    alert('Error al procesar la respuesta del servidor.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al obtener datos de ubicación.');
+            });
+    }
     });
 </script>

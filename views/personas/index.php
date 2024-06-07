@@ -53,8 +53,7 @@
                 </td>
                 <td>
                     <a href="/ProyectoPersona/index.php?action=readOne&id=<?php echo $persona['id']; ?>" class="btn btn-info">Ver</a>
-                    <a href="/ProyectoPersona/index.php?action=update&id=<?php echo $persona['id']; ?>" class="btn btn-warning">Editar</a>
-                    <!-- <a href="/ProyectoPersona/index.php?action=delete&id=<?php echo $persona['id']; ?>" class="btn btn-danger">Eliminar</a> //agregue abajo el alert para que se ejecute en layout-->
+                    <a href="/ProyectoPersona/index.php?action=update&id=<?php echo $persona['id']; ?>" class="btn btn-warning">Editar</a>                    
                     <a href="/ProyectoPersona/index.php?action=delete&id=<?php echo $persona['id']; ?>" class="btn btn-danger btn-eliminar">Eliminar</a>
                 </td>
             </tr>

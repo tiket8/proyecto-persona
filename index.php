@@ -40,5 +40,5 @@ switch ($action) {
    
 }
 
-include('views/layout.php');
+// include('views/layout.php');
 ?>

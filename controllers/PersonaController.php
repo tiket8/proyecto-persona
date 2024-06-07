@@ -23,12 +23,7 @@ class PersonaController {
             $this->persona->direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
             $this->persona->codigo_postal = isset($_POST['codigo_postal']) ? $_POST['codigo_postal'] : '';
 
-            // Obtener datos de ubicación
-            $ubicacion = $this->getLocationByPostalCode($this->persona->codigo_postal);
-            $this->persona->municipio = $ubicacion['municipio'];
-            $this->persona->estado = $ubicacion['estado'];
-            $this->persona->localidad = $ubicacion['localidad'];
-            
+                        
             $this->persona->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
 
             // Manejo del archivo de foto de perfil
@@ -53,18 +48,21 @@ class PersonaController {
         }
     }
 
-    private function getLocationByPostalCode($codigo_postal) {
-        $query = "SELECT municipio, estado, localidad FROM codigos_postales WHERE codigo_postal = :codigo_postal";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':codigo_postal', $codigo_postal);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function getLocation() {
         if (isset($_GET['codigo_postal'])) {
             $codigo_postal = $_GET['codigo_postal'];
-            $query = "SELECT municipio, estado, localidad FROM codigos_postales WHERE codigo_postal = :codigo_postal";
+            $query = "
+                SELECT 
+                    cp.codigo_postal, 
+                    l.nombre AS localidad, 
+                    m.nombre AS municipio, 
+                    e.nombre AS estado 
+                FROM codigos_postales cp
+                JOIN localidades l ON cp.localidad_id = l.id
+                JOIN municipios m ON l.municipio_id = m.id
+                JOIN estados e ON m.estado_id = e.id
+                WHERE cp.codigo_postal = :codigo_postal
+            ";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':codigo_postal', $codigo_postal);
             $stmt->execute();
@@ -80,6 +78,7 @@ class PersonaController {
         }
         exit();
     }
+
 
     public function read() {
         $stmt = $this->persona->read();
@@ -169,5 +168,5 @@ switch ($action) {
         break;
 }
 
-// include('views/layout.php');
+include('views/layout.php');
 ?>
