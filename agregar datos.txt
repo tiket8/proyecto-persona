@@ -1,0 +1,26 @@
+//insert de datos completos 
+
+
+INSERT INTO persona (
+    nombres, primer_apellido, segundo_apellido, fecha_nacimiento, edad, sexo, fk_profesion, direccion, codigo_postal, municipio, estado, localidad, telefono, foto_perfil
+) VALUES 
+('Juan', 'Pérez', 'Gómez', '1990-05-15', 33, 'hombre', 1, 'Calle Falsa 123', '63000', 'Tepic', 'Nayarit', 'Tepic Centro', '3111234567', 'uploads/juan.jpg'),
+('María', 'López', 'Hernández', '1985-10-22', 38, 'mujer', 2, 'Avenida Siempre Viva 456', '63190', 'Tepic', 'Nayarit', 'San Cayetano', '3119876543', 'uploads/maria.jpg'),
+('Carlos', 'Sánchez', 'Martínez', '1978-03-30', 46, 'hombre', 3, 'Boulevard de los Héroes 789', '63800', 'San Blas', 'Nayarit', 'San Blas', '3116543210', 'uploads/carlos.jpg');
+
+
+//insert de cp localidad muni estado 
+
+INSERT INTO codigos_postales (codigo_postal, localidad, municipio, estado) VALUES
+('63000', 'Tepic Centro', 'Tepic', 'Nayarit'),
+('63190', 'San Cayetano', 'Tepic', 'Nayarit'),
+('63800', 'San Blas', 'San Blas', 'Nayarit');
+
+
+
+INSERT INTO profesion (profesion, hora, fecha, estado) VALUES
+('Ingeniero', '09:00:00', '2023-01-01', 1),
+('Doctor', '10:00:00', '2023-01-02', 1),
+('Profesor', '11:00:00', '2023-01-03', 1);
+
+
