@@ -58,8 +58,6 @@ switch ($action) {
         $personaController->getLocation();
         exit();
 
-    
-
     default:
         $personas = $personaController->read();
         $view = 'views/personas/index.php';

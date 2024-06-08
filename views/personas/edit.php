@@ -25,6 +25,7 @@
                 <select name="sexo" class="form-control" required>
                     <option value="hombre" <?php if ($persona['sexo'] == 'hombre') echo 'selected'; ?>>Hombre</option>
                     <option value="mujer" <?php if ($persona['sexo'] == 'mujer') echo 'selected'; ?>>Mujer</option>
+                    <option value="Aun No me Decido" <?php if ($persona['sexo'] == 'Aun No me Decido') echo 'selected'; ?>>Aun No me Decido</option>
                 </select>
             </div>
             <div class="form-group">

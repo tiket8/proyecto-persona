@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container mt-5">
+    <div class="mx-auto" style="width: 200px;">
+        <a href="/ProyectoPersona/index.php" class="btn btn-primary mb-3">Inicio</a>
+    </div>
+</div>
     <div class="container mt-5">
         <?php 
         if (isset($view) && !empty($view)) {

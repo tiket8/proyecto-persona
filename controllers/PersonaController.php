@@ -188,7 +188,6 @@ switch ($action) {
         break;
 }
 
-// include('views/layout.php');
 ?>
 
 
