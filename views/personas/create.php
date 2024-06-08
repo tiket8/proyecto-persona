@@ -33,8 +33,9 @@ $profesiones = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="form-group">
         <label for="sexo">Sexo</label>
         <select name="sexo" class="form-control" required>
-            <option value="hombre">Hombre</option>
-            <option value="mujer">Mujer</option>
+            <option value="Hombre">Hombre</option>
+            <option value="Mujer">Mujer</option>
+            <option value="Aun No me Decido">Aun No me Decido</option>
         </select>
     </div>
     <div class="form-group">

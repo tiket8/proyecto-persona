@@ -96,7 +96,15 @@ class PersonaController {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id) {
+  // Mostrar el formulario de edición con datos de la persona
+    public function showEditForm($id) {
+        $persona = $this->persona->readOne($id);
+        $profesiones = $this->persona->getProfesiones();
+        include 'views/personas/edit.php';
+    }
+
+    // Actualizar los datos de la persona en la base de datos
+    public function updatePersona($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->persona->id = $id;
             $this->persona->nombres = $_POST['nombres'];
@@ -108,11 +116,11 @@ class PersonaController {
             $this->persona->fk_profesion = $_POST['fk_profesion'];
             $this->persona->direccion = $_POST['direccion'];
             $this->persona->codigo_postal = $_POST['codigo_postal'];
-            $this->persona->municipio = $_POST['municipio'];
             $this->persona->estado = $_POST['estado'];
+            $this->persona->municipio = $_POST['municipio'];
             $this->persona->localidad = $_POST['localidad'];
             $this->persona->telefono = $_POST['telefono'];
-    
+
             if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] == 0) {
                 $target_dir = "uploads/";
                 $target_file = $target_dir . basename($_FILES["foto_perfil"]["name"]);
@@ -121,20 +129,16 @@ class PersonaController {
             } else {
                 $this->persona->foto_perfil = $_POST['foto_perfil_actual'];
             }
-    
+
             if ($this->persona->update()) {
                 header("Location: /ProyectoPersona/index.php?action=read");
+                exit();
             } else {
                 echo "Error al actualizar la persona";
             }
-        } else {
-            $this->persona->id = $id;
-            $persona = $this->persona->readOne($id);
-            $view = 'views/personas/edit.php';
-            include('views/layout.php');
         }
     }
-
+ 
     public function delete($id) {
         $this->persona->id = $id;
         if ($this->persona->delete()) {
@@ -145,16 +149,17 @@ class PersonaController {
     }
 }
 
+// Configuración y manejo de acciones
 $database = new Database();
 $db = $database->getConnection();
 $controller = new PersonaController($db);
 
-$action = isset($_GET['action']) ? $_GET['action'] : '';
+$action = isset($_GET['action']) ? $_GET['action'] : 'read';
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 switch ($action) {
     case 'create':
-        $controller->create();
+        $view = 'views/personas/create.php';
         break;
     case 'read':
         $personas = $controller->read();
@@ -165,14 +170,18 @@ switch ($action) {
         $view = 'views/personas/show.php';
         break;
     case 'update':
-        $view = 'views/personas/edit.php';
+        $controller->showEditForm($id);
+        break;
+    case 'updatePersona':
+        $controller->updatePersona($id);
         break;
     case 'delete':
         $controller->delete($id);
-        break;
+        header("Location: /ProyectoPersona/index.php?action=read");
+        exit();
     case 'getLocation':
         $controller->getLocation();
-        break;
+        exit();       
     default:
         $personas = $controller->read();
         $view = 'views/personas/index.php';
@@ -181,3 +190,5 @@ switch ($action) {
 
 // include('views/layout.php');
 ?>
+
+

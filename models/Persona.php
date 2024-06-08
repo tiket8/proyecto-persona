@@ -62,33 +62,55 @@ class Persona {
         return $stmt;
     }
 
-    public function readOne() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
+    public function readOne($id) {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id LIMIT 1";
+        
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt;
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row) {
+            $this->id = $row['id'];
+            $this->nombres = $row['nombres'];
+            $this->primer_apellido = $row['primer_apellido'];
+            $this->segundo_apellido = $row['segundo_apellido'];
+            $this->fecha_nacimiento = $row['fecha_nacimiento'];
+            $this->edad = $row['edad'];
+            $this->sexo = $row['sexo'];
+            $this->fk_profesion = $row['fk_profesion'];
+            $this->direccion = $row['direccion'];
+            $this->codigo_postal = $row['codigo_postal'];
+            $this->estado = $row['estado'];
+            $this->municipio = $row['municipio'];
+            $this->localidad = $row['localidad'];
+            $this->telefono = $row['telefono'];
+            $this->foto_perfil = $row['foto_perfil'];
+        }
+
+        return $row;
     }
+    
+    
 
     public function update() {
-        $query = "UPDATE " . $this->table_name . " 
-            SET
-                nombres = :nombres,
-                primer_apellido = :primer_apellido,
-                segundo_apellido = :segundo_apellido,
-                fecha_nacimiento = :fecha_nacimiento,
-                edad = :edad,
-                sexo = :sexo,
-                fk_profesion = :fk_profesion,
-                direccion = :direccion,
-                codigo_postal = :codigo_postal,
-                municipio = :municipio,
-                estado = :estado,
-                localidad = :localidad,
-                telefono = :telefono,
-                foto_perfil = :foto_perfil
-            WHERE
-                id = :id";
+        $query = "UPDATE " . $this->table_name . " SET
+            nombres = :nombres,
+            primer_apellido = :primer_apellido,
+            segundo_apellido = :segundo_apellido,
+            fecha_nacimiento = :fecha_nacimiento,
+            edad = :edad,
+            sexo = :sexo,
+            fk_profesion = :fk_profesion,
+            direccion = :direccion,
+            codigo_postal = :codigo_postal,
+            estado = :estado,
+            municipio = :municipio,
+            localidad = :localidad,
+            telefono = :telefono,
+            foto_perfil = :foto_perfil
+            WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 
@@ -101,20 +123,28 @@ class Persona {
         $stmt->bindParam(':fk_profesion', $this->fk_profesion);
         $stmt->bindParam(':direccion', $this->direccion);
         $stmt->bindParam(':codigo_postal', $this->codigo_postal);
-        $stmt->bindParam(':municipio', $this->municipio);
         $stmt->bindParam(':estado', $this->estado);
+        $stmt->bindParam(':municipio', $this->municipio);
         $stmt->bindParam(':localidad', $this->localidad);
         $stmt->bindParam(':telefono', $this->telefono);
         $stmt->bindParam(':foto_perfil', $this->foto_perfil);
         $stmt->bindParam(':id', $this->id);
 
-        if ($stmt->execute()) {
+        if($stmt->execute()) {
             return true;
         }
-
         return false;
     }
 
+
+
+    public function getProfesiones() {
+        $query = "SELECT * FROM profesion WHERE estado = 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
     public function delete() {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
