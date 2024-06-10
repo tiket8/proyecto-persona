@@ -5,7 +5,7 @@
 -- Dumped from database version 16.3
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-06-06 22:59:33
+-- Started on 2024-06-10 13:51:17
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -53,7 +53,7 @@ CREATE SEQUENCE public.codigos_postales_id_seq
 ALTER SEQUENCE public.codigos_postales_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4896 (class 0 OID 0)
+-- TOC entry 4906 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: codigos_postales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -91,7 +91,7 @@ CREATE SEQUENCE public.estados_id_seq
 ALTER SEQUENCE public.estados_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4897 (class 0 OID 0)
+-- TOC entry 4907 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -130,7 +130,7 @@ CREATE SEQUENCE public.localidades_id_seq
 ALTER SEQUENCE public.localidades_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4898 (class 0 OID 0)
+-- TOC entry 4908 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: localidades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -169,7 +169,7 @@ CREATE SEQUENCE public.municipios_id_seq
 ALTER SEQUENCE public.municipios_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4899 (class 0 OID 0)
+-- TOC entry 4909 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: municipios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -220,7 +220,7 @@ CREATE SEQUENCE public.persona_id_seq
 ALTER SEQUENCE public.persona_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4900 (class 0 OID 0)
+-- TOC entry 4910 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: persona_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -261,7 +261,7 @@ CREATE SEQUENCE public.profesion_pk_profesion_seq
 ALTER SEQUENCE public.profesion_pk_profesion_seq OWNER TO postgres;
 
 --
--- TOC entry 4901 (class 0 OID 0)
+-- TOC entry 4911 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: profesion_pk_profesion_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -270,7 +270,47 @@ ALTER SEQUENCE public.profesion_pk_profesion_seq OWNED BY public.profesion.pk_pr
 
 
 --
--- TOC entry 4719 (class 2604 OID 16743)
+-- TOC entry 228 (class 1259 OID 16761)
+-- Name: routes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.routes (
+    id integer NOT NULL,
+    path character varying(255) NOT NULL,
+    controller character varying(255) NOT NULL,
+    action character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.routes OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16760)
+-- Name: routes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.routes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.routes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4912 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: routes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.routes_id_seq OWNED BY public.routes.id;
+
+
+--
+-- TOC entry 4724 (class 2604 OID 16743)
 -- Name: codigos_postales id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -278,7 +318,7 @@ ALTER TABLE ONLY public.codigos_postales ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 4716 (class 2604 OID 16712)
+-- TOC entry 4721 (class 2604 OID 16712)
 -- Name: estados id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -286,7 +326,7 @@ ALTER TABLE ONLY public.estados ALTER COLUMN id SET DEFAULT nextval('public.esta
 
 
 --
--- TOC entry 4718 (class 2604 OID 16731)
+-- TOC entry 4723 (class 2604 OID 16731)
 -- Name: localidades id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -294,7 +334,7 @@ ALTER TABLE ONLY public.localidades ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4717 (class 2604 OID 16719)
+-- TOC entry 4722 (class 2604 OID 16719)
 -- Name: municipios id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -302,7 +342,7 @@ ALTER TABLE ONLY public.municipios ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- TOC entry 4715 (class 2604 OID 16691)
+-- TOC entry 4720 (class 2604 OID 16691)
 -- Name: persona id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -310,7 +350,7 @@ ALTER TABLE ONLY public.persona ALTER COLUMN id SET DEFAULT nextval('public.pers
 
 
 --
--- TOC entry 4713 (class 2604 OID 16683)
+-- TOC entry 4718 (class 2604 OID 16683)
 -- Name: profesion pk_profesion; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -318,7 +358,15 @@ ALTER TABLE ONLY public.profesion ALTER COLUMN pk_profesion SET DEFAULT nextval(
 
 
 --
--- TOC entry 4890 (class 0 OID 16740)
+-- TOC entry 4725 (class 2604 OID 16764)
+-- Name: routes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.routes ALTER COLUMN id SET DEFAULT nextval('public.routes_id_seq'::regclass);
+
+
+--
+-- TOC entry 4898 (class 0 OID 16740)
 -- Dependencies: 226
 -- Data for Name: codigos_postales; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -340,7 +388,7 @@ COPY public.codigos_postales (id, codigo_postal, localidad_id) FROM stdin;
 
 
 --
--- TOC entry 4884 (class 0 OID 16709)
+-- TOC entry 4892 (class 0 OID 16709)
 -- Dependencies: 220
 -- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -351,7 +399,7 @@ COPY public.estados (id, nombre) FROM stdin;
 
 
 --
--- TOC entry 4888 (class 0 OID 16728)
+-- TOC entry 4896 (class 0 OID 16728)
 -- Dependencies: 224
 -- Data for Name: localidades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -373,7 +421,7 @@ COPY public.localidades (id, nombre, municipio_id) FROM stdin;
 
 
 --
--- TOC entry 4886 (class 0 OID 16716)
+-- TOC entry 4894 (class 0 OID 16716)
 -- Dependencies: 222
 -- Data for Name: municipios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -388,38 +436,32 @@ COPY public.municipios (id, nombre, estado_id) FROM stdin;
 
 
 --
--- TOC entry 4882 (class 0 OID 16688)
+-- TOC entry 4890 (class 0 OID 16688)
 -- Dependencies: 218
 -- Data for Name: persona; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.persona (id, nombres, primer_apellido, segundo_apellido, fecha_nacimiento, edad, sexo, fk_profesion, direccion, codigo_postal, municipio, estado, localidad, telefono, foto_perfil) FROM stdin;
-6	Miguel	Valenzuela	Lopez	1988-12-30	35	hombre	1	Calle1	63000	Tepic	Nayarit	Tepic Centro	311254879	uploads/perfil.jpg
-7	Manuel	Pérez	Gómez	1990-05-15	33	hombre	1	Calle Falsa 123	63000	Tepic	Nayarit	Tepic Centro	3111234567	uploads/juan.jpg
 8	María	López	Hernández	1985-10-22	38	mujer	2	Avenida Siempre Viva 456	63190	Tepic	Nayarit	San Cayetano	3119876543	uploads/maria.jpg
 9	Carlos	Sánchez	Martínez	1978-03-30	46	hombre	3	Boulevard de los Héroes 789	63800	San Blas	Nayarit	San Blas	3116543210	uploads/carlos.jpg
 10	Juan	Norte	Gómez	1990-05-15	33	hombre	1	Calle Falsa 546	63000	Tepic	Nayarit	Tepic Centro	3111234567	uploads/juan.jpg
 11	Luisa	Pedro	Hernández	1985-10-22	38	mujer	2	Avenida Siempre Viva 487	63190	Tepic	Nayarit	San Cayetano	3119876543	uploads/maria.jpg
-13	vcxz	czczx	zczx	1988-12-30	35	hombre	1	bkjsdbjads	63000	\N	\N	\N	32153465	uploads/perfil.jpg
+6	Miguel	Valenzuela	Lopez	1988-12-30	35	hombre	3	Calle1	63000	Tepic	Nayarit	Tepic Centro	311254879	uploads/perfil.jpg
+7	Manuel	Pérez	Gómez	1990-05-15	33	hombre	1	Calle Falsa 123	63000	Tepic	Nayarit	Tepic Centro	3111234567	uploads/perfil.jpg
 \.
 
 
 --
--- TOC entry 4880 (class 0 OID 16680)
+-- TOC entry 4888 (class 0 OID 16680)
 -- Dependencies: 216
 -- Data for Name: profesion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.profesion (pk_profesion, profesion, hora, fecha, estado) FROM stdin;
 1	Ingeniero	09:00:00	2023-01-01	1
-2	Doctor	10:00:00	2023-01-02	1
-3	Profesor	11:00:00	2023-01-03	1
-4	Ingeniero	09:00:00	2023-01-01	1
-5	Doctor	10:00:00	2023-01-02	1
 6	Profesor	11:00:00	2023-01-03	1
 7	Abogado	12:00:00	2023-01-04	1
 8	Arquitecto	13:00:00	2023-01-05	1
-9	Enfermero	14:00:00	2023-01-06	1
 10	Contador	15:00:00	2023-01-07	1
 11	Desarrollador de Software	16:00:00	2023-01-08	1
 12	Electricista	17:00:00	2023-01-09	1
@@ -429,11 +471,39 @@ COPY public.profesion (pk_profesion, profesion, hora, fecha, estado) FROM stdin;
 16	Periodista	21:00:00	2023-01-13	1
 17	Diseñador Gráfico	22:00:00	2023-01-14	1
 18	Farmacéutico	23:00:00	2023-01-15	1
+19	Futbolista	12:01:00	2024-06-07	1
+2	Doctor	10:00:00	2023-01-02	0
+5	Doctor	10:00:00	2023-01-02	0
+4	Ingeniero	09:00:00	2023-01-01	0
+3	Profesor	11:00:00	2023-01-03	0
+20	Pastor	22:20:00	2024-06-07	1
+9	Enfermero	14:00:00	2023-01-06	0
 \.
 
 
 --
--- TOC entry 4902 (class 0 OID 0)
+-- TOC entry 4900 (class 0 OID 16761)
+-- Dependencies: 228
+-- Data for Name: routes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.routes (id, path, controller, action) FROM stdin;
+1	/	PersonaController	read
+2	/createProfesion	ProfesionController	create
+3	/readProfesion	ProfesionController	read
+4	/deleteProfesion	ProfesionController	softDelete
+5	/saveProfesion	ProfesionController	create
+6	/create	PersonaController	create
+7	/read	PersonaController	read
+8	/readOne	PersonaController	readOne
+9	/update	PersonaController	update
+10	/delete	PersonaController	delete
+11	/getLocation	PersonaController	getLocation
+\.
+
+
+--
+-- TOC entry 4913 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: codigos_postales_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -442,7 +512,7 @@ SELECT pg_catalog.setval('public.codigos_postales_id_seq', 12, true);
 
 
 --
--- TOC entry 4903 (class 0 OID 0)
+-- TOC entry 4914 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -451,7 +521,7 @@ SELECT pg_catalog.setval('public.estados_id_seq', 1, true);
 
 
 --
--- TOC entry 4904 (class 0 OID 0)
+-- TOC entry 4915 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: localidades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -460,7 +530,7 @@ SELECT pg_catalog.setval('public.localidades_id_seq', 12, true);
 
 
 --
--- TOC entry 4905 (class 0 OID 0)
+-- TOC entry 4916 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: municipios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -469,7 +539,7 @@ SELECT pg_catalog.setval('public.municipios_id_seq', 5, true);
 
 
 --
--- TOC entry 4906 (class 0 OID 0)
+-- TOC entry 4917 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -478,16 +548,25 @@ SELECT pg_catalog.setval('public.persona_id_seq', 13, true);
 
 
 --
--- TOC entry 4907 (class 0 OID 0)
+-- TOC entry 4918 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: profesion_pk_profesion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profesion_pk_profesion_seq', 18, true);
+SELECT pg_catalog.setval('public.profesion_pk_profesion_seq', 23, true);
 
 
 --
--- TOC entry 4731 (class 2606 OID 16745)
+-- TOC entry 4919 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: routes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.routes_id_seq', 11, true);
+
+
+--
+-- TOC entry 4737 (class 2606 OID 16745)
 -- Name: codigos_postales codigos_postales_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -496,7 +575,7 @@ ALTER TABLE ONLY public.codigos_postales
 
 
 --
--- TOC entry 4725 (class 2606 OID 16714)
+-- TOC entry 4731 (class 2606 OID 16714)
 -- Name: estados estados_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -505,7 +584,7 @@ ALTER TABLE ONLY public.estados
 
 
 --
--- TOC entry 4729 (class 2606 OID 16733)
+-- TOC entry 4735 (class 2606 OID 16733)
 -- Name: localidades localidades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -514,7 +593,7 @@ ALTER TABLE ONLY public.localidades
 
 
 --
--- TOC entry 4727 (class 2606 OID 16721)
+-- TOC entry 4733 (class 2606 OID 16721)
 -- Name: municipios municipios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -523,7 +602,7 @@ ALTER TABLE ONLY public.municipios
 
 
 --
--- TOC entry 4723 (class 2606 OID 16695)
+-- TOC entry 4729 (class 2606 OID 16695)
 -- Name: persona persona_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -532,7 +611,7 @@ ALTER TABLE ONLY public.persona
 
 
 --
--- TOC entry 4721 (class 2606 OID 16686)
+-- TOC entry 4727 (class 2606 OID 16686)
 -- Name: profesion profesion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -541,7 +620,16 @@ ALTER TABLE ONLY public.profesion
 
 
 --
--- TOC entry 4735 (class 2606 OID 16746)
+-- TOC entry 4739 (class 2606 OID 16768)
+-- Name: routes routes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.routes
+    ADD CONSTRAINT routes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4743 (class 2606 OID 16746)
 -- Name: codigos_postales codigos_postales_localidad_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -550,7 +638,7 @@ ALTER TABLE ONLY public.codigos_postales
 
 
 --
--- TOC entry 4734 (class 2606 OID 16734)
+-- TOC entry 4742 (class 2606 OID 16734)
 -- Name: localidades localidades_municipio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -559,7 +647,7 @@ ALTER TABLE ONLY public.localidades
 
 
 --
--- TOC entry 4733 (class 2606 OID 16722)
+-- TOC entry 4741 (class 2606 OID 16722)
 -- Name: municipios municipios_estado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -568,7 +656,7 @@ ALTER TABLE ONLY public.municipios
 
 
 --
--- TOC entry 4732 (class 2606 OID 16696)
+-- TOC entry 4740 (class 2606 OID 16696)
 -- Name: persona persona_fk_profesion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -576,7 +664,7 @@ ALTER TABLE ONLY public.persona
     ADD CONSTRAINT persona_fk_profesion_fkey FOREIGN KEY (fk_profesion) REFERENCES public.profesion(pk_profesion);
 
 
--- Completed on 2024-06-06 22:59:33
+-- Completed on 2024-06-10 13:51:17
 
 --
 -- PostgreSQL database dump complete
